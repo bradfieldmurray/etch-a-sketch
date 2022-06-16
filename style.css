@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color:darkgrey;
+    display:flex;
+    justify-content: center;
+}
+
+#container {
+    width:960px;
+    height:960px;
+    background:gray;
+    display:grid;
+    grid-template-columns: repeat(16, 60px);
+    grid-template-rows: repeat(16, 60px);
+}
+
+.cell,
+.cell-hovered {
+    border: 1px solid black;
+}
+
+.cell {
+    background:darkgreen;
+}
+
+.cell-hovered {
+    background: blue;
+}
