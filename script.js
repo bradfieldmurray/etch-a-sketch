@@ -1,5 +1,8 @@
 const container = document.getElementById('container');
 const boardSize = document.querySelector('.btnBoardSize');
+const normalOption = document.getElementById('normal');
+const gradientOption = document.getElementById('gradient');
+const colorOption = document.getElementById('colorful');
 const initialSize = 16;
 
 
@@ -36,16 +39,26 @@ function populateBoard(size) {
         let blueValue = 255; 
 
         cell.addEventListener('mouseenter', () => {
-            if(redValue != 0) {
-                //reduce rgb values by 10 percent of original until square is black
-                cell.style.background = `rgb(${redValue -= 255/10}, ${greenValue -= 255/10}, ${blueValue -= 255/10})`;
-            }           
+            if(normalOption.checked) {
+                cell.style.background = `rgb(${0}, ${0}, ${0})`;
+            } else if(gradientOption.checked){
+                if(redValue != 0) {
+                    //reduce rgb values by 10 percent of original until square is black
+                    cell.style.background = `rgb(${redValue -= 255/10}, ${greenValue -= 255/10}, ${blueValue -= 255/10})`;
+                }
+            } else {
+                cell.style.background = `rgb(${makeRandomColor(255)}, ${makeRandomColor(255)}, ${makeRandomColor(255)})`;
+            }
+
+           
         });
     });
 }
 
 
-
+function makeRandomColor(max) {
+    return Math.floor(Math.random() * max);
+}
 
 
 boardSize.addEventListener(('click'), () => {
