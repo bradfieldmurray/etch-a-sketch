@@ -2,7 +2,7 @@ const container = document.getElementById('container');
 const boardSize = document.querySelector('.btnBoardSize');
 const initialSize = 16;
 
-let cells = [];
+
 
 
 
@@ -17,6 +17,7 @@ function clearBoard(parent) {
 
 
 function populateBoard(size) {
+    let cells = [];
     for(let i = 0; i < size*size; i++){
         cells[i] = document.createElement('div');
         cells[i].classList.add('cell');
@@ -28,8 +29,17 @@ function populateBoard(size) {
 
     //create listener for cells and cause them to change color on hover
     cells.forEach((cell) => {
-        cell.addEventListener('mousemove', () => {
-            cell.classList.replace('cell' ,'cell-hovered');
+
+        //initialize rgb values for first time through
+        let redValue = 255;
+        let greenValue = 255;
+        let blueValue = 255; 
+
+        cell.addEventListener('mouseenter', () => {
+            if(redValue != 0) {
+                //reduce rgb values by 10 percent of original until square is black
+                cell.style.background = `rgb(${redValue -= 255/10}, ${greenValue -= 255/10}, ${blueValue -= 255/10})`;
+            }           
         });
     });
 }
