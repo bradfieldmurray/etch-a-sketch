@@ -36,7 +36,11 @@ function populateBoard(size) {
     container.style.gridTemplateColumns = `repeat(${size}, ${960/size}px)`;
 
 
+
+ 
     cells.forEach((cell) => {
+
+        const controller = new AbortController();
 
         //initialize rgb values for first time through
         let redValue = 255;
@@ -49,6 +53,7 @@ function populateBoard(size) {
             //if structure to determine which color to fill cell with
             if(normalOption.checked) {
                 cell.style.background = `rgb(${0}, ${0}, ${0})`;
+                controller.abort();
 
             } else if(gradientOption.checked){
 
@@ -60,8 +65,9 @@ function populateBoard(size) {
                 }
             } else {
                 cell.style.background = `rgb(${makeRandomColor(255)}, ${makeRandomColor(255)}, ${makeRandomColor(255)})`;
+                controller.abort();
             }
-        });
+        }, {signal:controller.signal});
     });
 }
 
