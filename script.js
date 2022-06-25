@@ -3,6 +3,8 @@ const boardSize = document.querySelector('.btnBoardSize');
 const normalOption = document.getElementById('normal');
 const gradientOption = document.getElementById('gradient');
 
+const strictFillOption = document.getElementById('strictfill');
+
 const initialSize = 16;
 
 
@@ -53,7 +55,11 @@ function populateBoard(size) {
             //if structure to determine which color to fill cell with
             if(normalOption.checked) {
                 cell.style.background = `rgb(${0}, ${0}, ${0})`;
-                controller.abort();
+
+                //abort listener if strict option is selected
+                if(strictFillOption.checked) {
+                    controller.abort();
+                }
 
             } else if(gradientOption.checked){
 
@@ -62,10 +68,21 @@ function populateBoard(size) {
 
                     //reduce rgb values by 10 percent of original until square is black
                     cell.style.background = `rgb(${redValue -= 255/10}, ${greenValue -= 255/10}, ${blueValue -= 255/10})`;
+                } else {
+
+                    //abort listener if strict option is selected
+                    if(strictFillOption.checked) {
+                        controller.abort();
+                    }
                 }
             } else {
                 cell.style.background = `rgb(${makeRandomColor(255)}, ${makeRandomColor(255)}, ${makeRandomColor(255)})`;
-                controller.abort();
+
+                //abort listener if strict option is selected
+                if(strictFillOption.checked) {
+                    controller.abort();
+                }
+
             }
         }, {signal:controller.signal});
     });
